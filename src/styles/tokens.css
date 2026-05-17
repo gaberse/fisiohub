@@ -1,0 +1,285 @@
+/* FisioHub · Design tokens for Tailwind v4
+ * Import once from index.css — never import tailwindcss here.
+ */
+
+@theme {
+  /* ── Colors · neutrals (slate) ─────────────────────────── */
+  --color-bg:       #f8fafc;
+  --color-surface:  #ffffff;
+  --color-border:   #e2e8f0;
+  --color-border-2: #cbd5e1;
+  --color-ink-300:  #cbd5e1;
+  --color-ink-400:  #94a3b8;
+  --color-ink-500:  #64748b;
+  --color-ink-700:  #334155;
+  --color-ink-900:  #0f172a;
+
+  /* ── Colors · brand ─────────────────────────────────────── */
+  --color-blue-deep: #1e3a8a;
+  --color-blue-mid:  #3b82f6;
+  --color-blue-50:   #eff6ff;
+  --color-blue-100:  #dbeafe;
+
+  /* ── Colors · brand legacy (kept for backward compat) ──── */
+  --color-brand-50:  #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #172554;
+
+  /* ── Colors · semantic ──────────────────────────────────── */
+  --color-ok-50:   #ecfdf5;
+  --color-ok-600:  #059669;
+  --color-ok-700:  #047857;
+  --color-warn-50:  #fffbeb;
+  --color-warn-600: #d97706;
+  --color-warn-700: #b45309;
+  --color-bad-50:  #fef2f2;
+  --color-bad-600: #dc2626;
+  --color-bad-700: #b91c1c;
+
+  /* ── Radii ──────────────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-sm:   0 1px 2px rgba(15,23,42,.04);
+  --shadow-md:   0 4px 14px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+  --shadow-lg:   0 12px 32px rgba(15,23,42,.10), 0 2px 6px rgba(15,23,42,.04);
+  --shadow-blue: 0 8px 24px rgba(30,58,138,.22);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Brand gradients — use via var() or bg-[image:var(--grad-blue)] */
+:root {
+  --grad-blue:      linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  --grad-blue-soft: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+}
+
+/* ── Component layer ────────────────────────────────────────
+ * Semantic recipes that bundle Tailwind primitives.          */
+@layer components {
+
+  /* ─── Buttons ─────────────────────────────────────────── */
+  .fh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    border: none;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s, background .12s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .fh-btn:hover { transform: translateY(-1px); }
+  .fh-btn:disabled { opacity: .45; pointer-events: none; }
+
+  .fh-btn-primary {
+    background: var(--grad-blue);
+    color: white;
+    box-shadow: var(--shadow-blue);
+  }
+  .fh-btn-primary:hover {
+    box-shadow: 0 10px 28px rgba(30,58,138,.32);
+  }
+
+  .fh-btn-secondary { background: #0f172a; color: white; }
+  .fh-btn-secondary:hover { background: #1e293b; }
+
+  .fh-btn-ghost {
+    background: transparent;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+  }
+  .fh-btn-ghost:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+
+  .fh-btn-soft { background: #eff6ff; color: #1e3a8a; }
+  .fh-btn-soft:hover { background: #dbeafe; }
+
+  .fh-btn-danger { background: #dc2626; color: white; }
+  .fh-btn-danger:hover { background: #b91c1c; }
+
+  .fh-btn-sm { height: 36px; padding: 0 14px; font-size: 13px; border-radius: 10px; }
+  .fh-btn-lg { height: 52px; padding: 0 26px; font-size: 15px; border-radius: 14px; }
+  .fh-btn-icon { width: 44px; padding: 0; }
+
+  /* ─── Card ────────────────────────────────────────────── */
+  .fh-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ─── Input ───────────────────────────────────────────── */
+  .fh-input {
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f172a;
+    transition: border-color .12s, box-shadow .12s;
+  }
+  .fh-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59,130,246,.14);
+  }
+  .fh-input::placeholder { color: #94a3b8; font-weight: 500; }
+  .fh-input-error { border-color: #dc2626; }
+  .fh-input-error:focus { box-shadow: 0 0 0 4px rgba(220,38,38,.14); }
+
+  /* ─── Field wrapper ───────────────────────────────────── */
+  .fh-field { display: flex; flex-direction: column; gap: 8px; }
+  .fh-field-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── Badge ───────────────────────────────────────────── */
+  .fh-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .fh-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .fh-badge-blue  { background: #eff6ff; color: #1e3a8a; }
+  .fh-badge-green { background: #ecfdf5; color: #047857; }
+  .fh-badge-amber { background: #fffbeb; color: #b45309; }
+  .fh-badge-red   { background: #fef2f2; color: #b91c1c; }
+  .fh-badge-slate { background: #f1f5f9; color: #334155; }
+
+  /* ─── Avatar ──────────────────────────────────────────── */
+  .fh-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #0f172a;
+    color: white;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .fh-avatar-grad { background: var(--grad-blue); }
+
+  /* ─── Tabs · segmented ────────────────────────────────── */
+  .fh-tabs {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    background: #f1f5f9;
+    border-radius: 12px;
+  }
+  .fh-tab {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background .12s, color .12s;
+  }
+  .fh-tab:hover { color: #0f172a; }
+  .fh-tab[aria-selected="true"] {
+    background: white;
+    color: #0f172a;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ─── Tabs · underlined ───────────────────────────────── */
+  .fh-tabline { display: flex; gap: 28px; border-bottom: 1px solid #e2e8f0; }
+  .fh-tabline-item {
+    padding: 14px 0;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #64748b;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color .12s, border-color .12s;
+  }
+  .fh-tabline-item[aria-selected="true"] { color: #0f172a; border-bottom-color: #0f172a; }
+
+  /* ─── Typography helpers ──────────────────────────────── */
+  .fh-display { font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; }
+
+  .fh-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+  .fh-label-ink {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0f172a;
+  }
+
+  /* ─── Logo wordmark ───────────────────────────────────── */
+  .fh-logo {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #0f172a;
+  }
+  .fh-logo .dot {
+    display: inline-block;
+    background: var(--grad-blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
