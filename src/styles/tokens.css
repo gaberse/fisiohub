@@ -427,6 +427,68 @@
     cursor: not-allowed;
   }
 
+  /* ─── Modal ──────────────────────────────────────────── */
+  .fh-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .fh-modal {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(15,23,42,.2), 0 4px 16px rgba(15,23,42,.08);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 48px);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .fh-modal-sm  { max-width: 400px; }
+  .fh-modal-md  { max-width: 560px; }
+  .fh-modal-lg  { max-width: 720px; }
+  .fh-modal-xl  { max-width: 900px; }
+
+  .fh-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 24px 0;
+    flex-shrink: 0;
+  }
+  .fh-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+  }
+  .fh-modal-footer {
+    padding: 0 24px 24px;
+    flex-shrink: 0;
+  }
+  .fh-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .1s, color .1s;
+  }
+  .fh-modal-close:hover { background: #f8fafc; color: #0f172a; }
+
   /* ─── DatePicker / TimePicker dropdown ───────────────── */
   .fh-picker-dropdown {
     position: absolute;
