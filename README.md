@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# FisioHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SaaS de gestión para clínicas de fisioterapia. Multi-tenant, con soporte para múltiples sedes, roles diferenciados y flujo clínico completo — desde agendar una cita hasta registrar la nota de sesión.
 
-Currently, two official plugins are available:
+Primer cliente: **Fisiomass Perú**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Capa | Tecnología |
+|---|---|
+| Frontend | React 19 + TypeScript 6 + Vite 8 |
+| Estilos | Tailwind CSS v4 + design system propio (`fh-*`) |
+| Backend / DB | Supabase (Postgres + Auth) |
+| Routing | React Router 7 |
+| Íconos | Lucide React |
+| Fechas | date-fns (locale `es`) |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Arquitectura
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+La jerarquía de datos es: **Clinic → Branch → Staff / Patients**.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Cada clínica puede tener múltiples sedes. Los admin pueden cambiar de sede en tiempo real; terapeutas y recepcionistas están fijos a su sede asignada.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Roles
+
+| Rol | Acceso |
+|---|---|
+| `admin` | Dashboard, equipo, paquetes, reportes, cambio de sede |
+| `receptionist` | Agenda, pacientes, nueva cita |
+| `therapist` | Sus sesiones del día, nota de sesión |
+| `patient` | Portal del paciente *(próximamente)* |
+
+### Módulos implementados
+
+- **Agenda diaria** — vista por sede, filtro de estado, modal nueva cita
+- **Pacientes** — listado con búsqueda, ficha de detalle (info, sesiones, paquetes)
+- **Sesiones** — vista del terapeuta con stats, modal de nota clínica (chips de tratamientos y zonas)
+- **Encuesta de satisfacción** — se dispara automáticamente al completar una cita
+- **Admin — Equipo** — crear terapeutas y recepcionistas (cuenta auth + perfil)
+- **Admin — Paquetes** — crear, editar, activar/desactivar
+- **Admin — Reportes** — métricas del mes
+
+---
+
+## Design System
+
+Los tokens viven en `src/styles/tokens.css` como variables `@theme` de Tailwind v4. Las clases `fh-*` son recetas semánticas definidas en `@layer components`.
+
+Paleta: neutrales slate (`ink-*`), acento azul profundo (`#1e3a8a → #3b82f6`), colores semánticos (ok / warn / bad).
+
+Los componentes primitivos están en `src/components/ui/` y se exportan desde el barrel `index.ts`:
+
+`Button` · `Badge` · `Avatar` · `Card` · `Input` · `Textarea` · `Select` · `Tabs` · `TabLine` · `TabPanel` · `Toast` · `useToast`
+
+---
+
+## Desarrollo
+
+```bash
+# Requiere pnpm
+cp .env.example .env   # agregar credenciales Supabase
+
+pnpm install
+pnpm dev               # http://localhost:5173
+pnpm build             # type-check + build → ./dist/
+pnpm lint
+pnpm preview           # http://localhost:4173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Variables de entorno
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
 ```
+
+Sin estas variables la app muestra una pantalla de configuración en lugar de cargar.
+
+---
+
+## Roadmap
+
+**Fase 2 — Producto**
+- Formulario de intake del paciente (link público, sin auth)
+- Venta de paquetes con descuento automático de sesiones
+- Recordatorios por email y WhatsApp (Resend + Twilio)
+- Suscripciones y cobro automático (Culqi + Yape Business)
+- Portal del paciente
+
+**Fase 3 — IA** *(Claude API)*
+- Voz → nota de sesión estructurada
+- Análisis de intake → recomendación de paquete
+- Alertas de churn y predicción de no-shows
+- BI en lenguaje natural para la dueña de la clínica
