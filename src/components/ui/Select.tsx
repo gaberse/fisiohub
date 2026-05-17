@@ -60,12 +60,13 @@ export function Select({
     setOpen(false)
   }
 
-  const triggerStyle: React.CSSProperties = {
-    borderColor: error ? '#dc2626' : open ? '#3b82f6' : '#e2e8f0',
-    boxShadow: open ? '0 0 0 4px rgba(59,130,246,.14)' : error ? '0 0 0 4px rgba(220,38,38,.14)' : 'none',
-    background: disabled ? '#f8fafc' : 'white',
-    color: disabled ? '#94a3b8' : '#0f172a',
-  }
+  const triggerClasses = [
+    'fh-input w-full flex items-center justify-between gap-2 select-none',
+    'fh-select-trigger',
+    open && !error ? 'fh-select-open' : '',
+    error ? 'fh-select-error' : '',
+    disabled ? 'fh-select-disabled' : 'cursor-pointer',
+  ].filter(Boolean).join(' ')
 
   return (
     <div className={`fh-field ${className}`}>
@@ -74,8 +75,7 @@ export function Select({
       <div ref={ref} className="relative">
         {/* Trigger */}
         <div
-          className="fh-input w-full flex items-center justify-between gap-2 cursor-pointer select-none"
-          style={triggerStyle}
+          className={triggerClasses}
           onClick={() => !disabled && setOpen(o => !o)}
           role="combobox"
           aria-expanded={open}
