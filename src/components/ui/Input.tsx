@@ -6,12 +6,14 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix
   label?: string
   error?: string
   hint?: string
+  icon?: ReactNode
   prefix?: ReactNode
   suffix?: ReactNode
 }
 
-export function Input({ label, error, hint, prefix, suffix, className = '', id, ...props }: InputProps) {
+export function Input({ label, error, hint, icon, prefix, suffix, className = '', id, ...props }: InputProps) {
   const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
+  const hasLeft = icon || prefix
 
   return (
     <div className="fh-field">
@@ -21,8 +23,13 @@ export function Input({ label, error, hint, prefix, suffix, className = '', id, 
         </label>
       )}
       <div className="relative">
-        {prefix && (
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400 pointer-events-none">
+        {icon && (
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400 pointer-events-none flex items-center">
+            {icon}
+          </div>
+        )}
+        {prefix && !icon && (
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-400 pointer-events-none text-sm font-medium">
             {prefix}
           </div>
         )}
@@ -31,14 +38,16 @@ export function Input({ label, error, hint, prefix, suffix, className = '', id, 
           className={[
             'fh-input w-full',
             error ? 'fh-input-error' : '',
-            prefix ? 'pl-10' : '',
-            suffix ? 'pr-10' : '',
             className,
           ].filter(Boolean).join(' ')}
+          style={{
+            paddingLeft: hasLeft ? 44 : 16,
+            paddingRight: suffix ? 44 : 16,
+          }}
           {...props}
         />
         {suffix && (
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-ink-500">
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-400 flex items-center">
             {suffix}
           </div>
         )}
