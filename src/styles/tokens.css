@@ -427,6 +427,126 @@
     cursor: not-allowed;
   }
 
+  /* ─── DatePicker / TimePicker dropdown ───────────────── */
+  .fh-picker-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 50;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(15,23,42,.14), 0 2px 6px rgba(15,23,42,.06);
+    padding: 16px;
+    min-width: 288px;
+  }
+
+  /* calendar nav */
+  .fh-cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .fh-cal-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    cursor: pointer;
+    color: #334155;
+    transition: background .1s, border-color .1s;
+  }
+  .fh-cal-nav-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+
+  /* weekday headers */
+  .fh-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .fh-cal-weekday {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+  }
+
+  /* day cells */
+  .fh-cal-day {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    transition: background .1s, color .1s;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+  }
+  .fh-cal-day:hover { background: #f1f5f9; }
+  .fh-cal-day--outside { color: #cbd5e1; }
+  .fh-cal-day--outside:hover { background: transparent; cursor: default; }
+  .fh-cal-day--today {
+    background: #eff6ff;
+    color: #1e3a8a;
+  }
+  .fh-cal-day--selected {
+    background: var(--grad-blue);
+    color: white;
+    box-shadow: 0 4px 12px rgba(30,58,138,.28);
+  }
+  .fh-cal-day--selected:hover { background: var(--grad-blue); }
+  .fh-cal-day--disabled { color: #cbd5e1; cursor: not-allowed; }
+  .fh-cal-day--disabled:hover { background: transparent; }
+
+  /* time slot list */
+  .fh-time-list {
+    max-height: 240px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: #e2e8f0 transparent;
+  }
+  .fh-time-slot {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    text-align: left;
+    transition: background .1s;
+  }
+  .fh-time-slot:hover { background: #f8fafc; }
+  .fh-time-slot--selected {
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-weight: 800;
+  }
+  .fh-time-slot--disabled { color: #cbd5e1; cursor: not-allowed; }
+  .fh-time-slot--disabled:hover { background: transparent; }
+
   /* ─── Typography helpers ──────────────────────────────── */
   .fh-display { font-weight: 900; line-height: 0.92; letter-spacing: -0.035em; }
 
