@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [remember, setRemember] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [googleLoading, setGoogleLoading] = useState(false)
+  // const [googleLoading, setGoogleLoading] = useState(false)
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
 
@@ -34,11 +34,11 @@ export default function LoginPage() {
     setLoading(false)
   }
 
-  async function handleGoogle() {
-    setGoogleLoading(true)
-    await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } })
-    setGoogleLoading(false)
-  }
+  // async function handleGoogle() {
+  //   setGoogleLoading(true)
+  //   await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } })
+  //   setGoogleLoading(false)
+  // }
 
   return (
     <div className="min-h-screen bg-white flex">
@@ -101,8 +101,8 @@ export default function LoginPage() {
 
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-8" style={{ background: '#f8fafc' }}>
-        <div className="w-full max-w-sm flex flex-col gap-8">
+      <div className="flex-1 flex items-center justify-center px-6 lg:px-8" style={{ background: '#f8fafc' }}>
+        <div className="w-full max-w-[360px] lg:max-w-sm flex flex-col gap-8">
 
           <div className="lg:hidden mb-10">
             <span className="fh-logo text-2xl">fisiohub<span className="dot">.</span></span>
@@ -181,12 +181,12 @@ export default function LoginPage() {
             </Button>
           </form>
 
+          {/* Google SSO — pendiente de activar OAuth en Supabase
           <div className="flex items-center gap-3 my-5">
             <div className="flex-1 h-px" style={{ background: '#e2e8f0' }} />
             <span className="fh-label" style={{ color: '#94a3b8' }}>O continúa con</span>
             <div className="flex-1 h-px" style={{ background: '#e2e8f0' }} />
           </div>
-
           <button
             type="button"
             onClick={handleGoogle}
@@ -202,6 +202,7 @@ export default function LoginPage() {
             </svg>
             {googleLoading ? 'Redirigiendo...' : 'Google'}
           </button>
+          */}
 
           <p className="text-center text-xs text-ink-400 mt-8">
             ¿Eres una clínica nueva?{' '}

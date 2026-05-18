@@ -35,6 +35,15 @@
 
 ---
 
+## 🔐 Auth — flujos pendientes
+
+- [ ] **Recuperar contraseña** — "¿Olvidaste?" dispara email de reset via Supabase Auth; necesita `ForgotPasswordPage` (input email + submit) y `ResetPasswordPage` (nueva contraseña + confirmación, ruta `/auth/reset`)
+- [ ] **Mantener sesión iniciada** — si el checkbox está desmarcado, usar `sessionStorage` en lugar de `localStorage` para que la sesión expire al cerrar el browser; configurar `persistSession` en el cliente Supabase según el estado del checkbox al hacer login
+- [ ] **Solicitar demo** — modal desde el login con campos: nombre, clínica, email, teléfono, ciudad; guarda en tabla `demo_requests` en Supabase; opcional: notificación por email con Resend
+- [ ] **Google SSO** — activar OAuth provider Google en Supabase, descomentar `handleGoogle` y el botón en `LoginPage`; definir flujo para usuarios invitados por admin vs. acceso directo con Google
+
+---
+
 ## 🟡 Importante (parte del pitch)
 
 - [ ] **Formulario de perfil inicial del paciente (intake)** — link público enviado al paciente nuevo, sin login
@@ -87,16 +96,16 @@
 ## 🎨 Design system — pendiente
 
 ### Estados faltantes en componentes existentes
-- [ ] `Button` — agregar `:focus-visible` (accesibilidad teclado) y `:active` (feedback de press)
-- [ ] `Input` — agregar estado `:disabled` (fondo gris, cursor not-allowed)
-- [ ] `Select` — mover lógica de colores de focus/error de inline styles a clases CSS en tokens.css
+- [x] `Button` — agregar `:focus-visible` (accesibilidad teclado) y `:active` (feedback de press)
+- [x] `Input` — agregar estado `:disabled` (fondo gris, cursor not-allowed)
+- [x] `Select` — mover lógica de colores de focus/error de inline styles a clases CSS en tokens.css
 
 ### Componentes pendientes
-- [ ] `Checkbox` — con label, error, indeterminate state
-- [ ] `Radio` / `RadioGroup` — opciones mutuamente exclusivas con label
-- [ ] `Toggle` / `Switch` — encendido/apagado con label
-- [ ] `DatePicker` — selector de fecha (calendar dropdown)
-- [ ] `TimePicker` — selector de hora (scroll o dropdown de slots)
+- [x] `Checkbox` — con label, error, indeterminate state
+- [x] `Radio` / `RadioGroup` — opciones mutuamente exclusivas con label
+- [x] `Toggle` / `Switch` — encendido/apagado con label
+- [x] `DatePicker` — selector de fecha (calendar dropdown)
+- [x] `TimePicker` — selector de hora (scroll o dropdown de slots)
 
 ---
 
